@@ -36,6 +36,22 @@
   </nav>
 
   <div id="player">
+    <div class="controls-panel" id="controls-panel">
+      <div class="ctrl-row">
+        <span class="ctrl-label">LECTURE</span>
+        <button class="play-btn" id="play-btn">▶</button>
+        <div class="progress-bar" id="progress-bar">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <span class="time-label" id="time-label">0:00 / 0:00</span>
+      </div>
+      <div class="ctrl-row">
+        <span class="ctrl-label">VOLUME</span>
+        <span class="vol-icon">♪</span>
+        <input type="range" class="vol" id="vol-slider" min="0" max="100" value="80" />
+        <span class="vol-val" id="vol-val">80%</span>
+      </div>
+    </div>
     <div class="player-header">
       <div class="player-title">// AUDIO SYNC</div>
       <div class="player-status" id="status">STANDBY</div>
@@ -58,6 +74,9 @@
       </div>
     </div>
     <div class="eq" id="eq"></div>
+    <button class="controls-toggle" id="controls-toggle">
+      CONTRÔLES <span class="chevron" id="chevron">▲</span>
+    </button>
   </div>
 
   <div id="modal" role="dialog" aria-modal="true" aria-label="Détail du projet">
@@ -129,7 +148,6 @@
           <a href="https://github.com/Arker59" class="contact-link" target="_blank" rel="noopener">GITHUB</a>
           <a href="media/CV-Louis-DAULAUS.pdf" class="contact-link" target="_blank" rel="noopener">CV</a>
           <a href="https://linkedin.com/in/louisdaulaus" class="contact-link" target="_blank" rel="noopener">LINKEDIN</a>
-          <a href="https://discordapp.com/users/1282038147752132769" class="contact-link" target="_blank">DISCORD</a>
         </div>
       </div>
     </section>
@@ -146,7 +164,6 @@
     <nav class="footer-links" aria-label="Liens de contact">
       <a href="mailto:ldaulaus@et.esiea.fr" class="footer-link">MAIL</a>
       <a href="https://github.com/Arker59" class="footer-link" target="_blank" rel="noopener">GITHUB</a>
-      <a href="https://discordapp.com/users/1282038147752132769" class="footer-link" target="_blank">DISCORD</a>
       <a href="https://linkedin.com/in/louisdaulaus" class="footer-link" target="_blank" rel="noopener">LINKEDIN</a>
     </nav>
   </footer>

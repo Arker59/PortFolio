@@ -1,0 +1,98 @@
+[
+  {
+    "type": "// PROJET ACADÉMIQUE 2A",
+    "name": "HubAsso (EN COURS)",
+    "shortDesc": "Parce qu'une bonne équipe mérite une bonne organisation.",
+    "longDesc": "Projet de deuxième année en tant que lead et seul développeur full-stack d'un site de représentation des différentes associations de l'École supérieure de l'ESIEA.",
+    "tech": ["Django", "Python", "PostgreSQL", "JavaScript", "HTML", "CSS", "Docker", "Linux"],
+    "github": null,
+    "live": null,
+    "images": ["media/HubAsso1.png", "media/HubAsso2.png"]
+  },
+  {
+    "type": "// PROJET ACADÉMIQUE 2A",
+    "name": "Joggy (EN COURS)",
+    "shortDesc": "Le sport n'a jamais été aussi proche de chez vous.",
+    "longDesc": "Projet de deuxième année en équipe, développeur front et back d'un site de recherche d'activités sportives avec carte interactive et accès à des pages associatives.",
+    "tech": ["Java", "Spring Boot", "React", "Docker", "Linux"],
+    "github": null,
+    "live": null,
+    "images": [
+      "https://placehold.co/900x500/001a0d/00ff88?text=Joggy",
+      "https://placehold.co/900x500/001a0d/00ff88?text=Work+In+Progress"
+    ]
+  },
+  {
+    "type": "// PROJET COMMANDITÉ",
+    "name": "Prospera (EN COURS)",
+    "shortDesc": "Site vitrine de promotion d'activités professionnelles.",
+    "longDesc": "Lead développeur d'un site vitrine permettant la promotion d'activités professionnelles sous les instructions d'un commanditaire. Ce projet reprend le principe d'une architecture CMS (Content Management System) comme WordPress ou Strapi. Je me suis lancé le défi de refaire un CMS afin de permettre à mon commanditaire une fluidité de modification sur sa page.",
+    "tech": ["PHP", "MySQL", "JavaScript", "MVC", "CMS"],
+    "github": null,
+    "live": null,
+    "images": [
+      "https://placehold.co/900x500/001a0d/00ff88?text=Prospera",
+      "https://placehold.co/900x500/001a0d/00ff88?text=Work+In+Progress"
+    ]
+  },
+  {
+    "type": "// PROJET PERSONNEL",
+    "name": "Portfolio",
+    "shortDesc": "Le portfolio auquel vous lisez ces lignes :3",
+    "longDesc": "Seul développeur d'un site promotionnel pour moi-même, avec plusieurs styles et effets que j'ai pu tester pendant mon temps libre.",
+    "tech": ["JavaScript", "HTML", "CSS", "Three.js"],
+    "github": "https://github.com/Arker59/PortFolio",
+    "live": "#",
+    "images": ["media/Portfolio.png"]
+  },
+  {
+    "type": "// PROJET PERSONNEL",
+    "name": "LMP (Last Minute Playlist)",
+    "shortDesc": "La playlist universelle de dernière minute !",
+    "longDesc": "Seul développeur d'une extension Google permettant l'enregistrement de playlists et de vidéos/sons de plusieurs plateformes musicales avec lecture interne.",
+    "tech": ["JavaScript", "HTML", "CSS"],
+    "github": null,
+    "live": null,
+    "images": ["media/LMP1.png", "media/LMP2.png"]
+  },
+  {
+    "type": "// GAMEJAM 2026",
+    "name": "NoName",
+    "shortDesc": "Barrel Roll Game - GAMEJAM 2026",
+    "longDesc": "Jeu de kart aux mécaniques originales réalisé avec Unity en équipe. 48 h pour réaliser un jeu sous le thème du \"déjà-vu\". Notre idée ? Créer un jeu de course dans le style de Total Wipeout et TrackMania, contrôlant un tonneau volant à travers des circuits de jeux rétro.",
+    "tech": ["C#", "Unity"],
+    "github": "https://github.com/Arker59/NoName",
+    "live": null,
+    "images": ["media/NoName1.png", "media/NoName2.png"]
+  },
+  {
+    "type": "// PROJET ACADÉMIQUE 1A",
+    "name": "SkillSwipe",
+    "shortDesc": "Connecter les talents d'aujourd'hui aux opportunités de demain.",
+    "longDesc": "Projet de première année en équipe, développeur front et back d'un site de mise en relation professionnelle entre recruteurs et étudiants. Le but étant de reprendre une fonctionnalité connue, le swipe, reliée à des offres d'emploi triées via un algorithme de tri vectoriel.",
+    "tech": ["PHP", "MySQL", "JavaScript", "HTML", "CSS", "VMware", "Linux"],
+    "github": "https://github.com/Arker59/SkillSwipe",
+    "live": null,
+    "images": ["media/SkillSwipe1.png", "media/SkillSwipe2.jpg", "media/SkillSwipe3.jpg"]
+  },
+  {
+    "type": "// PROJET ACADÉMIQUE 1A",
+    "name": "SpaceCraft",
+    "shortDesc": "Lost in space, craft your way home.",
+    "longDesc": "Projet de première année en équipe, développeur front et back d'un jeu web inspiré de Minecraft et Terraria dans un thème spatial. Le but étant de récupérer des ressources afin de partir d'une planète abandonnée après le crash d'un astronaute.",
+    "tech": ["JavaScript", "HTML", "CSS", "Node.js"],
+    "github": "https://github.com/Arker59/SPACECRAFT",
+    "live": null,
+    "images": ["media/SpaceCraft1.png", "media/SpaceCraft2.png", "media/SpaceCraft3.jpg"]
+  },
+  {
+    "type": "// GAMEJAM 2025",
+    "name": "PixelLeveling",
+    "shortDesc": "Par XVI Games",
+    "longDesc": "Lead développeur d'un jeu créé en 48 h pour une game jam au thème de la \"dualité\", le jeu étant un platformer de combat en 2D avec deux mondes coexistant.",
+    "tech": ["C#", "Unity"],
+    "github": null,
+    "live": null,
+    "images": ["media/PixelLeveling1.png", "media/PixelLeveling2.png", "media/PixelLeveling3.png"]
+  }
+]

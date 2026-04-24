@@ -1,127 +1,5 @@
 "use strict";
 
-const PROJECTS = [
-  {
-    type: "// PROJET ACADÉMIQUE 2A",
-    name: "HubAsso (EN COURS)",
-    shortDesc: "Parce qu'une bonne équipe mérite une bonne organisation.",
-    longDesc: `Projet de deuxième année en tant que lead et seul développeur full-stack d'un site de représentation des différentes associations de l'École supérieure de l'ESIEA.`,
-    tech: ["Django", "Python", "PostgreSQL", "JavaScript", "HTML", "CSS", "Docker", "Linux"],
-    github: null,
-    live: null,
-    images: [
-      "media/HubAsso1.png",
-      "media/HubAsso2.png",
-    ],
-  },
-  {
-    type: "// PROJET ACADÉMIQUE 2A",
-    name: "Joggy (EN COURS)",
-    shortDesc: "Le sport n'a jamais été aussi proche de chez vous.",
-    longDesc: `Projet de deuxième année en équipe, développeur front et back d'un site de recherche d'activités sportives avec carte interactive et accès à des pages associatives.`,
-    tech: ["Java", "Spring Boot", "React", "Docker", "Linux"],
-    github: null,
-    live: null,
-    images: [
-      "https://placehold.co/900x500/001a0d/00ff88?text=Joggy",
-      "https://placehold.co/900x500/001a0d/00ff88?text=Work+In+Progress",
-    ],
-  },
-  {
-    type: "// PROJET COMMANDITÉ",
-    name: "Prospera (EN COURS)",
-    shortDesc: "Site vitrine de promotion d'activités professionnelles.",
-    longDesc: `Lead développeur d'un site vitrine permettant la promotion d'activités professionnelles sous les instructions d'un commanditaire. Ce projet reprend le principe d'une architecture CMS (Content Management System) comme WordPress ou Strapi. Je me suis lancé le défi de refaire un CMS afin de permettre à mon commanditaire une fluidité de modification sur sa page.`,
-    tech: ["PHP", "MySQL", "JavaScript", "MVC", "CMS"],
-    github: null,
-    live: null,
-    images: [
-      "https://placehold.co/900x500/001a0d/00ff88?text=Prospera",
-      "https://placehold.co/900x500/001a0d/00ff88?text=Work+In+Progress",
-    ],
-  },
-  {
-    type: "// PROJET PERSONNEL",
-    name: "Portfolio",
-    shortDesc: "Le portfolio auquel vous lisez ces lignes :3",
-    longDesc: `Seul développeur d'un site promotionnel pour moi-même, avec plusieurs styles et effets que j'ai pu tester pendant mon temps libre.`,
-    tech: ["JavaScript", "HTML", "CSS", "Three.js"],
-    github: "https://github.com/Arker59/PortFolio",
-    live: "#",
-    images: [
-      "media/Portfolio.png",
-    ],
-  },
-  {
-    type: "// PROJET PERSONNEL",
-    name: "LMP (Last Minute Playlist)",
-    shortDesc: "La playlist universelle de dernière minute !",
-    longDesc: `Seul développeur d'une extension Google permettant l'enregistrement de playlists et de vidéos/sons de plusieurs plateformes musicales avec lecture interne.`,
-    tech: ["JavaScript", "HTML", "CSS"],
-    github: null,
-    live: null,
-    images: [
-      "media/LMP1.png",
-      "media/LMP2.png"
-    ],
-  },
-  {
-    type: "// GAMEJAM 2026",
-    name: "NoName",
-    shortDesc: "Barrel Roll Game - GAMEJAM 2026",
-    longDesc: `Jeu de kart aux mécaniques originales réalisé avec Unity en équipe. 48 h pour réaliser un jeu sous le thème du "déjà-vu". Notre idée ? Créer un jeu de course dans le style de Total Wipeout et TrackMania, contrôlant un tonneau volant à travers des circuits de jeux rétro.`,
-    tech: ["C#", "Unity"],
-    github: "https://github.com/Arker59/NoName",
-    live: null,
-    images: [
-      "media/NoName1.png",
-      "media/NoName2.png",
-    ],
-  },
-  {
-    type: "// PROJET ACADÉMIQUE 1A",
-    name: "SkillSwipe",
-    shortDesc: "Connecter les talents d'aujourd'hui aux opportunités de demain.",
-    longDesc: `Projet de première année en équipe, développeur front et back d'un site de mise en relation professionnelle entre recruteurs et étudiants. Le but étant de reprendre une fonctionnalité connue, le swipe, reliée à des offres d'emploi triées via un algorithme de tri vectoriel.`,
-    tech: ["PHP", "MySQL", "JavaScript", "HTML", "CSS", "VMware", "Linux"],
-    github: "https://github.com/Arker59/SkillSwipe",
-    live: null,
-    images: [
-      "media/SkillSwipe1.png",
-      "media/SkillSwipe2.jpg",
-      "media/SkillSwipe3.jpg",
-    ],
-  },
-  {
-    type: "// PROJET ACADÉMIQUE 1A",
-    name: "SpaceCraft",
-    shortDesc: "Lost in space, craft your way home.",
-    longDesc: `Projet de première année en équipe, développeur front et back d'un jeu web inspiré de Minecraft et Terraria dans un thème spatial. Le but étant de récupérer des ressources afin de partir d'une planète abandonnée après le crash d'un astronaute.`,
-    tech: ["JavaScript", "HTML", "CSS", "Node.js"],
-    github: "https://github.com/Arker59/SPACECRAFT",
-    live: null,
-    images: [
-      "media/SpaceCraft1.png",
-      "media/SpaceCraft2.png",
-      "media/SpaceCraft3.jpg",
-    ],
-  },
-  {
-    type: "// GAMEJAM 2025",
-    name: "PixelLeveling",
-    shortDesc: "Par XVI Games",
-    longDesc: `Lead développeur d'un jeu créé en 48 h pour une game jam au thème de la "dualité", le jeu étant un platformer de combat en 2D avec deux mondes coexistant.`,
-    tech: ["C#", "Unity"],
-    github: null,
-    live: null,
-    images: [
-      "media/PixelLeveling1.png",
-      "media/PixelLeveling2.png",
-      "media/PixelLeveling3.png",
-    ],
-  },
-];
-
 const ROLES = [
   "ÉTUDIANT EN 2E ANNÉE EXPERT — ESIEA",
   "APPRENTI DÉVELOPPEUR WEB FULL-STACK",
@@ -211,10 +89,12 @@ window.addEventListener("resize", () => {
 
 let audioCtx = null;
 let analyser = null;
+let gainNode = null;
 let timeData = null;
 let freqData = null;
 let currentEl = null;
 let audioSource = null;
+let progressTimer = null;
 
 function initAudio() {
   if (!audioCtx) {
@@ -223,7 +103,12 @@ function initAudio() {
     analyser.fftSize = 2048;
     timeData = new Uint8Array(analyser.fftSize);
     freqData = new Uint8Array(analyser.frequencyBinCount);
-    analyser.connect(audioCtx.destination);
+    gainNode = audioCtx.createGain();
+    gainNode.gain.value = document.getElementById("vol-slider")
+      ? document.getElementById("vol-slider").value / 100
+      : 0.8;
+    analyser.connect(gainNode);
+    gainNode.connect(audioCtx.destination);
   }
   if (audioCtx.state === "suspended") audioCtx.resume();
 }
@@ -235,11 +120,11 @@ function loadURL(url, label) {
     currentEl.pause();
     currentEl.remove();
   }
-
   if (audioSource) {
     audioSource.disconnect();
     audioSource = null;
   }
+  clearInterval(progressTimer);
 
   initAudio();
 
@@ -256,12 +141,22 @@ function loadURL(url, label) {
   el.addEventListener("ended", () => {
     setPlayerStatus("STANDBY");
     oscCanvas.classList.remove("visible");
+    clearInterval(progressTimer);
+    const playBtn = document.getElementById("play-btn");
+    if (playBtn) playBtn.textContent = "▶";
+    const fill = document.getElementById("progress-fill");
+    if (fill) fill.style.width = "0%";
+    const timeLabel = document.getElementById("time-label");
+    if (timeLabel) timeLabel.textContent = "0:00 / 0:00";
   });
 
   el.addEventListener("canplay", () => {
-    el.play().catch(() => { });
+    el.play().catch(() => {});
     setPlayerStatus(label ? "▶ " + label.slice(0, 18) : "▶ LIVE");
     oscCanvas.classList.add("visible");
+    const playBtn = document.getElementById("play-btn");
+    if (playBtn) playBtn.textContent = "⏸";
+    startProgressUpdate();
   }, { once: true });
 
   el.addEventListener("error", () => setPlayerStatus("⚠ ERREUR URL"));
@@ -271,11 +166,23 @@ function setPlayerStatus(msg) {
   document.getElementById("status").textContent = msg;
 }
 
-function avgFreq(start, end) {
-  if (!freqData) return 0;
-  let sum = 0;
-  for (let i = start; i < end; i++) sum += freqData[i];
-  return sum / (end - start) / 255;
+function fmtTime(s) {
+  if (!isFinite(s)) return "0:00";
+  const m = Math.floor(s / 60);
+  const sec = Math.floor(s % 60).toString().padStart(2, "0");
+  return m + ":" + sec;
+}
+
+function startProgressUpdate() {
+  clearInterval(progressTimer);
+  progressTimer = setInterval(() => {
+    if (!currentEl || currentEl.paused) return;
+    const ratio = currentEl.currentTime / (currentEl.duration || 1);
+    const fill = document.getElementById("progress-fill");
+    if (fill) fill.style.width = (ratio * 100) + "%";
+    const timeLabel = document.getElementById("time-label");
+    if (timeLabel) timeLabel.textContent = fmtTime(currentEl.currentTime) + " / " + fmtTime(currentEl.duration || 0);
+  }, 500);
 }
 
 const oscCanvas = document.getElementById("oscilloscope");
@@ -413,21 +320,32 @@ function animate() {
 
 animate();
 
-const projectsGrid = document.getElementById("projects-grid");
+let PROJECTS = [];
 
-PROJECTS.forEach((project, idx) => {
-  const card = document.createElement("div");
-  card.className = "card";
-  card.innerHTML = `
-    <div class="card-type">${project.type}</div>
-    <div class="card-name">${project.name}</div>
-    <p   class="card-desc">${project.shortDesc}</p>
-    <div class="pills">${project.tech.map(t => `<span class="pill">${t}</span>`).join("")}</div>
-    <div class="card-view">VOIR LE PROJET →</div>
-  `;
-  card.addEventListener("click", () => openModal(idx));
-  projectsGrid.appendChild(card);
-});
+fetch("projects.json")
+  .then(r => r.json())
+  .then(data => {
+    PROJECTS = data;
+    renderProjects();
+  });
+
+function renderProjects() {
+  const projectsGrid = document.getElementById("projects-grid");
+  projectsGrid.innerHTML = "";
+  PROJECTS.forEach((project, idx) => {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `
+      <div class="card-type">${project.type}</div>
+      <div class="card-name">${project.name}</div>
+      <p   class="card-desc">${project.shortDesc}</p>
+      <div class="pills">${project.tech.map(t => `<span class="pill">${t}</span>`).join("")}</div>
+      <div class="card-view">VOIR LE PROJET →</div>
+    `;
+    card.addEventListener("click", () => openModal(idx));
+    projectsGrid.appendChild(card);
+  });
+}
 
 const modal = document.getElementById("modal");
 let carouselIdx = 0;
@@ -512,6 +430,42 @@ dropzone.addEventListener("drop", e => {
   dropzone.classList.remove("over");
   const f = e.dataTransfer.files[0];
   if (f) loadURL(URL.createObjectURL(f), f.name);
+});
+
+const controlsToggle = document.getElementById("controls-toggle");
+const controlsPanel = document.getElementById("controls-panel");
+const chevron = document.getElementById("chevron");
+
+controlsToggle.addEventListener("click", () => {
+  const open = controlsPanel.classList.toggle("open");
+  chevron.classList.toggle("open", open);
+});
+
+document.getElementById("play-btn").addEventListener("click", () => {
+  if (!currentEl) return;
+  if (audioCtx && audioCtx.state === "suspended") audioCtx.resume();
+  if (currentEl.paused) {
+    currentEl.play();
+    document.getElementById("play-btn").textContent = "⏸";
+    setPlayerStatus("▶ LIVE");
+    startProgressUpdate();
+  } else {
+    currentEl.pause();
+    document.getElementById("play-btn").textContent = "▶";
+    setPlayerStatus("⏸ PAUSE");
+  }
+});
+
+document.getElementById("progress-bar").addEventListener("click", e => {
+  if (!currentEl || !currentEl.duration) return;
+  const rect = e.currentTarget.getBoundingClientRect();
+  currentEl.currentTime = ((e.clientX - rect.left) / rect.width) * currentEl.duration;
+});
+
+document.getElementById("vol-slider").addEventListener("input", e => {
+  const v = e.target.value / 100;
+  if (gainNode) gainNode.gain.value = v;
+  document.getElementById("vol-val").textContent = e.target.value + "%";
 });
 
 new IntersectionObserver(entries => {
