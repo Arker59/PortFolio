@@ -67,6 +67,7 @@ button {
 }
 
 @media (pointer: coarse) {
+
   #cursor,
   #cursor-ring {
     display: none !important;
@@ -180,9 +181,11 @@ nav#navbar {
 .nav-toggle.open span:nth-child(1) {
   transform: translateY(6px) rotate(45deg);
 }
+
 .nav-toggle.open span:nth-child(2) {
   opacity: 0;
 }
+
 .nav-toggle.open span:nth-child(3) {
   transform: translateY(-6px) rotate(-45deg);
 }
@@ -527,6 +530,7 @@ section {
 .carousel-prev {
   left: 0.6rem;
 }
+
 .carousel-next {
   right: 0.6rem;
 }
@@ -929,6 +933,7 @@ section {
 .pane {
   display: none;
 }
+
 .pane.on {
   display: block;
 }
@@ -1076,9 +1081,11 @@ section {
 ::-webkit-scrollbar {
   width: 3px;
 }
+
 ::-webkit-scrollbar-track {
   background: transparent;
 }
+
 ::-webkit-scrollbar-thumb {
   background: var(--border);
 }
@@ -1101,14 +1108,17 @@ section {
   transition: color 0.2s;
   margin-top: 0.6rem;
 }
+
 .controls-toggle:hover {
   color: var(--neon);
   cursor: none;
 }
+
 .chevron {
   display: inline-block;
   transition: transform 0.28s;
 }
+
 .chevron.open {
   transform: rotate(180deg);
 }
@@ -1128,6 +1138,7 @@ section {
     padding 0.32s;
   padding: 0 1.2rem;
 }
+
 .controls-panel.open {
   max-height: 200px;
   padding: 1rem 1.2rem;
@@ -1139,11 +1150,13 @@ section {
   gap: 0.8rem;
   margin-bottom: 0.9rem;
 }
+
 .ctrl-label {
   font-size: 0.72rem;
   letter-spacing: 0.12em;
   min-width: 52px;
 }
+
 .play-btn {
   width: 34px;
   height: 34px;
@@ -1159,6 +1172,7 @@ section {
   transition: background 0.2s;
   flex-shrink: 0;
 }
+
 .play-btn:hover {
   background: rgba(0, 255, 136, 0.18);
   cursor: none;
@@ -1171,6 +1185,7 @@ section {
   position: relative;
   cursor: none;
 }
+
 .progress-fill {
   height: 100%;
   width: 0%;
@@ -1179,6 +1194,7 @@ section {
   pointer-events: none;
   transition: width 0.5s linear;
 }
+
 .time-label {
   font-size: 0.68rem;
   white-space: nowrap;
@@ -1188,12 +1204,14 @@ section {
   font-size: 0.75rem;
   color: rgba(184, 255, 212, 0.5);
 }
+
 input[type="range"].vol {
   flex: 1;
   height: 3px;
   accent-color: var(--neon);
   cursor: none;
 }
+
 .vol-val {
   font-size: 0.6rem;
   color: var(--neon);
@@ -1312,6 +1330,43 @@ input[type="range"].vol {
   .footer-links {
     gap: 1.2rem;
   }
+
+  .skills-treemap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    aspect-ratio: unset;
+    height: auto;
+  }
+
+  .skill-block {
+    position: relative !important;
+    width: 100% !important;
+    height: auto !important;
+    left: unset !important;
+    top: unset !important;
+    padding: 1rem;
+    min-height: unset;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .skill-block-name {
+    font-size: 0.8rem;
+  }
+
+  .skill-block-count {
+    font-size: 0.7rem;
+    text-align: right;
+  }
+
+  .skill-block::before,
+  .skill-block-bottom {
+    display: none;
+  }
+
 }
 
 #print-projects {
@@ -1325,7 +1380,8 @@ input[type="range"].vol {
     size: A4;
   }
 
-  html, body {
+  html,
+  body {
     background: white !important;
     color: #111 !important;
     font-family: Arial, Helvetica, sans-serif;
@@ -1344,10 +1400,19 @@ input[type="range"].vol {
     print-color-adjust: exact;
   }
 
-  #cursor, #cursor-ring, #bg, #oscilloscope,
-  #player, nav#navbar, #footer,
-  .cta, .controls-toggle, #modal, #skill-popup,
-  .hero-role::after, .skills-hint {
+  #cursor,
+  #cursor-ring,
+  #bg,
+  #oscilloscope,
+  #player,
+  nav#navbar,
+  #footer,
+  .cta,
+  .controls-toggle,
+  #modal,
+  #skill-popup,
+  .hero-role::after,
+  .skills-hint {
     display: none !important;
   }
 
@@ -1363,7 +1428,9 @@ input[type="range"].vol {
     page-break-inside: auto;
   }
 
-  .a4, .a4--wide, .a4--center {
+  .a4,
+  .a4--wide,
+  .a4--center {
     background: transparent !important;
     border: none !important;
     padding: 0 !important;
@@ -1372,7 +1439,8 @@ input[type="range"].vol {
     box-shadow: none !important;
   }
 
-  .a4::before, .a4::after {
+  .a4::before,
+  .a4::after {
     display: none !important;
   }
 
@@ -1434,7 +1502,9 @@ input[type="range"].vol {
     page-break-before: always;
   }
 
-  .projects-grid { display: none !important; }
+  .projects-grid {
+    display: none !important;
+  }
 
   #print-projects {
     display: block !important;
@@ -1538,8 +1608,10 @@ input[type="range"].vol {
 
   .skill-block {
     position: static !important;
-    left: unset !important; top: unset !important;
-    width: unset !important; height: unset !important;
+    left: unset !important;
+    top: unset !important;
+    width: unset !important;
+    height: unset !important;
     border: 1pt solid #ccc !important;
     padding: 0.28cm 0.3cm !important;
     min-height: 1.6cm !important;
@@ -1549,8 +1621,13 @@ input[type="range"].vol {
     break-inside: avoid;
   }
 
-  .skill-block::before { display: none !important; }
-  .skill-block-bottom  { display: none !important; }
+  .skill-block::before {
+    display: none !important;
+  }
+
+  .skill-block-bottom {
+    display: none !important;
+  }
 
   .skill-block-name {
     font-size: 7.5pt !important;
