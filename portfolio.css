@@ -1136,3 +1136,78 @@ input[type="range"].vol {
     gap: 1.2rem;
   }
 }
+
+@media print {
+  body {
+    background: white !important;
+    font-family: Arial, sans-serif;
+    cursor: auto;
+  }
+
+  * {
+    color: black !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+
+  #cursor,
+  #cursor-ring,
+  #bg,
+  #oscilloscope,
+  #player,
+  nav,
+  footer,
+  .cta,
+  .controls-toggle {
+    display: none !important;
+  }
+
+  section {
+    min-height: auto;
+    padding: 0;
+    margin-bottom: 20px;
+    page-break-inside: avoid;
+  }
+
+  .a4 {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+  }
+
+  .a4::before,
+  .a4::after {
+    display: none;
+  }
+
+  .hero-name,
+  .section-title {
+    color: black;
+    text-shadow: none;
+  }
+
+  .projects-grid,
+  .skills-list {
+    display: block;
+  }
+
+  .card,
+  .skill {
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    padding: 10px;
+    page-break-inside: avoid;
+  }
+
+  .fill {
+    display: none;
+  }
+
+  .skill-label::after {
+    content: " (" attr(data-level) "%)";
+  }
+}
