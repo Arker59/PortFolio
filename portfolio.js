@@ -322,11 +322,29 @@ animate();
 
 let PROJECTS = [];
 
+const SKILLS = [
+  { name: "JavaScript", keys: ["javascript", "js", "dom", "vanilla", "node"], baseWeight: 9, color: "#f7df1e"},
+  { name: "HTML | CSS",       keys: ["html", "css", "sass", "scss"],  baseWeight: 9, color: "#e34f26" },
+  { name: "SQL | PostgreSQL", keys: ["sql", "postgresql", "mysql", "database", "sqlite"], baseWeight: 8, color: "#336791" },
+  { name: "PHP",              keys: ["php", "laravel", "symfony"],  baseWeight: 8, color: "#777bb4" },
+  { name: "C# | Unity",       keys: ["c#", "unity", "csharp"], baseWeight: 7, color: "#9b4f96" },
+  { name: "GitHub | GitLab",  keys: ["github", "gitlab", "git"], baseWeight: 7, color: "#f05133" },
+  { name: "React",            keys: ["react"], baseWeight: 6, color: "#61dafb" },
+  { name: "Python | Django",  keys: ["python", "django"], baseWeight: 6, color: "#3776ab" },
+  { name: "Java | Spring",    keys: ["spring", "boot"], baseWeight: 5, color: "#6db33f" },
+  { name: "Docker",  keys: ["docker", "devops", "ci", "cd"], baseWeight: 3, color: "#2496ed" },
+];
+
 fetch("projects.json")
   .then(r => r.json())
   .then(data => {
     PROJECTS = data;
     renderProjects();
+    renderPrintProjects();
+    renderSkillsTreemap();
+  })
+  .catch(() => {
+    renderSkillsTreemap();
   });
 
 function renderProjects() {
@@ -346,6 +364,179 @@ function renderProjects() {
     projectsGrid.appendChild(card);
   });
 }
+
+function renderPrintProjects() {
+  const container = document.getElementById("print-projects");
+  if (!container) return;
+  container.innerHTML = PROJECTS.map((p, i) => {
+    const github = p.github
+      ? `<a class="pp-link" href="${p.github}">${p.github}</a>` : "";
+    const live = p.live
+      ? `<a class="pp-link pp-link--live" href="${p.live}">${p.live}</a>` : "";
+    const links = (github || live)
+      ? `<div class="pp-links">${github}${live}</div>` : "";
+    const pills = p.tech.map(t => `<span class="pp-pill">${t}</span>`).join("");
+
+    return `
+      <div class="pp-project">
+        <div class="pp-header">
+          <span class="pp-index">0${i + 1}</span>
+          <span class="pp-type">${p.type}</span>
+        </div>
+        <div class="pp-name">${p.name}</div>
+        <p class="pp-desc">${p.longDesc || p.shortDesc}</p>
+        <div class="pp-pills">${pills}</div>
+        ${links}
+      </div>
+    `;
+  }).join("");
+}
+
+
+function getProjectsForSkill(skill) {
+  return PROJECTS.filter(p =>
+    p.tech && p.tech.some(t =>
+      skill.keys.some(k => t.toLowerCase().includes(k))
+    )
+  );
+}
+
+const GAP = 5;
+
+function computeTreemapRects(items, x, y, w, h) {
+  if (!items.length) return [];
+  if (items.length === 1) return [{ item: items[0], x, y, w, h }];
+
+  const totalW = items.reduce((s, i) => s + i.weight, 0);
+
+  let acc = 0;
+  let splitIdx = 0;
+  const half = totalW / 2;
+  for (let i = 0; i < items.length; i++) {
+    acc += items[i].weight;
+    splitIdx = i + 1;
+    if (acc >= half) break;
+  }
+
+  const firstHalf  = items.slice(0, splitIdx);
+  const secondHalf = items.slice(splitIdx);
+  const firstW = firstHalf.reduce((s, i) => s + i.weight, 0);
+  const ratio  = firstW / totalW;
+
+  if (w >= h) {
+    const splitX = x + w * ratio;
+    return [
+      ...computeTreemapRects(firstHalf,  x,      y, w * ratio,        h),
+      ...computeTreemapRects(secondHalf, splitX, y, w * (1 - ratio),  h),
+    ];
+  } else {
+    const splitY = y + h * ratio;
+    return [
+      ...computeTreemapRects(firstHalf,  x, y,      w, h * ratio),
+      ...computeTreemapRects(secondHalf, x, splitY, w, h * (1 - ratio)),
+    ];
+  }
+}
+
+function renderSkillsTreemap() {
+  const container = document.getElementById("skills-treemap");
+  if (!container) return;
+  container.innerHTML = "";
+
+  const skillsData = SKILLS.map(skill => {
+    const projects = getProjectsForSkill(skill);
+    return { ...skill, projects, weight: projects.length * 3 + skill.baseWeight };
+  });
+
+  const sorted = [...skillsData].sort((a, b) => b.weight - a.weight);
+
+  const rects = computeTreemapRects(sorted, 0, 0, 100, 100);
+
+  rects.forEach(({ item: skill, x, y, w, h }) => {
+    const block = document.createElement("div");
+    block.className = "skill-block";
+
+    block.style.left   = `calc(${x}% + ${GAP}px)`;
+    block.style.top    = `calc(${y}% + ${GAP}px)`;
+    block.style.width  = `calc(${w}% - ${GAP * 2}px)`;
+    block.style.height = `calc(${h}% - ${GAP * 2}px)`;
+    block.style.setProperty("--skill-color", skill.color);
+
+    block.setAttribute("role", "button");
+    block.setAttribute("tabindex", "0");
+    block.setAttribute("aria-label", `${skill.name} — ${skill.projects.length} projet(s)`);
+
+    const countLabel = skill.projects.length > 0
+      ? `${skill.projects.length} <span>PROJET${skill.projects.length > 1 ? "S" : ""}</span>`
+      : `<span>TRANSVERSAL</span>`;
+
+    block.innerHTML = `
+      <div class="skill-block-name">${skill.name}</div>
+      <div class="skill-block-count">${countLabel}</div>
+      <div class="skill-block-bottom"></div>
+    `;
+
+    block.addEventListener("click", () => openSkillPopup(skill));
+    block.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") openSkillPopup(skill); });
+
+    block.addEventListener("mouseenter", () => {
+      cursorDot.style.width = "14px";   cursorDot.style.height = "14px";
+      cursorRing.style.width = "40px";  cursorRing.style.height = "40px";
+    });
+    block.addEventListener("mouseleave", () => {
+      cursorDot.style.width = "7px";    cursorDot.style.height = "7px";
+      cursorRing.style.width = "26px";  cursorRing.style.height = "26px";
+    });
+
+    container.appendChild(block);
+  });
+}
+
+const skillPopup = document.getElementById("skill-popup");
+
+function openSkillPopup(skill) {
+  document.getElementById("sp-title").textContent = skill.name;
+
+  if (skill.projects.length > 0) {
+    document.getElementById("sp-sub").textContent =
+      `// UTILISÉ DANS ${skill.projects.length} PROJET${skill.projects.length > 1 ? "S" : ""}`;
+
+    document.getElementById("sp-projects").innerHTML = skill.projects.map((p, idx) => {
+      const projIdx = PROJECTS.indexOf(p);
+      return `
+        <div class="skill-popup-project" data-idx="${projIdx}" role="button" tabindex="0">
+          <div class="skill-popup-project-name">${p.name}</div>
+          <div class="skill-popup-project-type">${p.type}</div>
+          <div class="skill-popup-project-arrow">→</div>
+        </div>
+      `;
+    }).join("");
+
+    document.querySelectorAll(".skill-popup-project").forEach(el => {
+      const handler = () => {
+        closeSkillPopup();
+        openModal(+el.dataset.idx);
+      };
+      el.addEventListener("click", handler);
+      el.addEventListener("keydown", e => { if (e.key === "Enter") handler(); });
+    });
+  } else {
+    document.getElementById("sp-sub").textContent = "// COMPÉTENCE TRANSVERSALE";
+    document.getElementById("sp-projects").innerHTML =
+      `<div class="skill-popup-empty">Aucun projet lié — compétence utilisée de façon transversale.</div>`;
+  }
+
+  skillPopup.classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+
+function closeSkillPopup() {
+  skillPopup.classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+document.getElementById("skill-popup-close").addEventListener("click", closeSkillPopup);
+skillPopup.addEventListener("click", e => { if (e.target === skillPopup) closeSkillPopup(); });
 
 const modal = document.getElementById("modal");
 let carouselIdx = 0;
@@ -398,8 +589,12 @@ document.getElementById("c-prev").addEventListener("click", () => goCarousel(car
 document.getElementById("c-next").addEventListener("click", () => goCarousel(carouselIdx + 1));
 document.getElementById("modal-close").addEventListener("click", closeModal);
 modal.addEventListener("click", e => { if (e.target === modal) closeModal(); });
-document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
-
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") {
+    if (skillPopup.classList.contains("open")) closeSkillPopup();
+    else closeModal();
+  }
+});
 document.querySelectorAll(".tab").forEach(tab => {
   tab.addEventListener("click", () => {
     document.querySelectorAll(".tab").forEach(t => t.classList.remove("on"));
@@ -468,13 +663,6 @@ document.getElementById("vol-slider").addEventListener("input", e => {
   document.getElementById("vol-val").textContent = e.target.value + "%";
 });
 
-new IntersectionObserver(entries => {
-  if (entries[0].isIntersecting) {
-    document.querySelectorAll(".fill").forEach(el => {
-      el.style.width = el.dataset.level + "%";
-    });
-  }
-}, { threshold: 0.25 }).observe(document.getElementById("skills"));
 
 const cursorDot = document.getElementById("cursor");
 const cursorRing = document.getElementById("cursor-ring");

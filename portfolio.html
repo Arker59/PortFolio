@@ -79,6 +79,15 @@
     </button>
   </div>
 
+  <div id="skill-popup" role="dialog" aria-modal="true" aria-label="Projets liés à la compétence">
+    <div class="skill-popup-box">
+      <button class="skill-popup-close" id="skill-popup-close" aria-label="Fermer">✕</button>
+      <div class="skill-popup-title" id="sp-title"></div>
+      <div class="skill-popup-sub"   id="sp-sub"></div>
+      <div class="skill-popup-projects" id="sp-projects"></div>
+    </div>
+  </div>
+
   <div id="modal" role="dialog" aria-modal="true" aria-label="Détail du projet">
     <div class="modal-box">
       <button class="modal-close" id="modal-close" aria-label="Fermer">✕</button>
@@ -117,6 +126,7 @@
         <div class="section-tag">// 002 — RÉALISATIONS</div>
         <h2 class="section-title">CE QUE JE CODE</h2>
         <div class="projects-grid" id="projects-grid"></div>
+        <div id="print-projects"></div>
       </div>
     </section>
 
@@ -124,18 +134,8 @@
       <div class="a4">
         <div class="section-tag">// 003 — COMPÉTENCES</div>
         <h2 class="section-title">HARD SKILLS</h2>
-        <div class="skills-list">
-          <div class="skill"><div class="skill-label">JavaScript / DOM</div><div class="track"><div class="fill" data-level="89"></div></div></div>
-          <div class="skill"><div class="skill-label">HTML / CSS</div><div class="track"><div class="fill" data-level="85"></div></div></div>
-          <div class="skill"><div class="skill-label">SQL / PostgreSQL</div><div class="track"><div class="fill" data-level="85"></div></div></div>
-          <div class="skill"><div class="skill-label">PHP</div><div class="track"><div class="fill" data-level="85"></div></div></div>
-          <div class="skill"><div class="skill-label">C# / Unity</div><div class="track"><div class="fill" data-level="75"></div></div></div>
-          <div class="skill"><div class="skill-label">GitHub / GitLab</div><div class="track"><div class="fill" data-level="70"></div></div></div>
-          <div class="skill"><div class="skill-label">React</div><div class="track"><div class="fill" data-level="65"></div></div></div>
-          <div class="skill"><div class="skill-label">Python / Django</div><div class="track"><div class="fill" data-level="65"></div></div></div>
-          <div class="skill"><div class="skill-label">Java / Spring Boot</div><div class="track"><div class="fill" data-level="60"></div></div></div>
-          <div class="skill"><div class="skill-label">Docker / DevOps</div><div class="track"><div class="fill" data-level="40"></div></div></div>
-        </div>
+        <div class="skills-treemap" id="skills-treemap"></div>
+        <p class="skills-hint">// TAILLE ∝ UTILISATION — CLIQUER POUR VOIR LES PROJETS</p>
       </div>
     </section>
 
