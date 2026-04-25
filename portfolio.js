@@ -323,16 +323,16 @@ animate();
 let PROJECTS = [];
 
 const SKILLS = [
-  { name: "JavaScript", keys: ["javascript", "js", "dom", "vanilla", "node"], baseWeight: 9, color: "#f7df1e"},
-  { name: "HTML | CSS",       keys: ["html", "css", "sass", "scss"],  baseWeight: 9, color: "#e34f26" },
+  { name: "JavaScript", keys: ["javascript", "js", "dom", "vanilla", "node"], baseWeight: 9, color: "#f7df1e" },
+  { name: "HTML | CSS", keys: ["html", "css", "sass", "scss"], baseWeight: 9, color: "#e34f26" },
   { name: "SQL | PostgreSQL", keys: ["sql", "postgresql", "mysql", "database", "sqlite"], baseWeight: 8, color: "#336791" },
-  { name: "PHP",              keys: ["php", "laravel", "symfony"],  baseWeight: 8, color: "#777bb4" },
-  { name: "C# | Unity",       keys: ["c#", "unity", "csharp"], baseWeight: 7, color: "#9b4f96" },
-  { name: "GitHub | GitLab",  keys: ["github", "gitlab", "git"], baseWeight: 7, color: "#f05133" },
-  { name: "React",            keys: ["react"], baseWeight: 6, color: "#61dafb" },
-  { name: "Python | Django",  keys: ["python", "django"], baseWeight: 6, color: "#3776ab" },
-  { name: "Java | Spring",    keys: ["spring", "boot"], baseWeight: 5, color: "#6db33f" },
-  { name: "Docker",  keys: ["docker", "devops", "ci", "cd"], baseWeight: 3, color: "#2496ed" },
+  { name: "PHP", keys: ["php", "laravel", "symfony"], baseWeight: 8, color: "#777bb4" },
+  { name: "C# | Unity", keys: ["c#", "unity", "csharp"], baseWeight: 7, color: "#9b4f96" },
+  { name: "GitHub | GitLab", keys: ["github", "gitlab", "git"], baseWeight: 7, color: "#f05133" },
+  { name: "React", keys: ["react"], baseWeight: 6, color: "#61dafb" },
+  { name: "Python | Django", keys: ["python", "django"], baseWeight: 6, color: "#3776ab" },
+  { name: "Java | Spring", keys: ["spring", "boot"], baseWeight: 5, color: "#6db33f" },
+  { name: "Docker", keys: ["docker", "devops", "ci", "cd"], baseWeight: 3, color: "#2496ed" },
 ];
 
 fetch("projects.json")
@@ -341,11 +341,102 @@ fetch("projects.json")
     PROJECTS = data;
     renderProjects();
     renderPrintProjects();
+    renderExperiences();
     renderSkillsTreemap();
   })
   .catch(() => {
+    renderExperiences();
     renderSkillsTreemap();
   });
+
+const EXPERIENCES = [
+  {
+    company:  "BUREAU DES JEUX — ESIEA",
+    role:     "RESPONSABLE COMMUNICATION",
+    period:   "SEPT. 2024 — PRÉSENT | 1 AN 8 MOIS",
+    desc:     "Responsable de la Gestion et de la Conception de visuels pour la communication digitale et physique du Bureau Des Jeux, leur mise en avant et la prise de souvenirs afin de maintenir la vie de l'association auprès des étudiants et des personnes externes.",
+    projects: []
+  },
+  {
+    company:  "STAGE OPENLAB — ESIEA",
+    role:     "STAGIAIRE DÉVELOPPEUR DEVOPS",
+    period:   "FÉVRIER — AVRIL 2026 | 2 MOIS",
+    desc:     "Stagiaire Développeur DevOps du service de l'OpenLab de l'école supérieure de l'ESIEA, mon rôle était de participer en équipe à la conception et au développement du projet ci-joint.",
+    projects: ["OpenLab Management System V2"]
+  },
+];
+
+function renderExperiences() {
+  const grid = document.getElementById("exp-grid");
+  if (!grid) return;
+  grid.innerHTML = "";
+  EXPERIENCES.forEach(exp => {
+    const linked = PROJECTS.filter(p => exp.projects.includes(p.name));
+    const linkedTxt = linked.length > 0
+      ? `// PROJETS LIÉS : ${linked.map(p => p.name).join(", ")}`
+      : "";
+
+    const card = document.createElement("div");
+    card.className = "exp-card";
+    card.setAttribute("role", "button");
+    card.setAttribute("tabindex", "0");
+    card.innerHTML = `
+      <div class="exp-card-company">${exp.company}</div>
+      <div class="exp-card-role">${exp.role}</div>
+      <div class="exp-card-period">${exp.period}</div>
+      <div class="exp-card-view">VOIR LE DÉTAIL →</div>
+      <div class="exp-card-desc-print">${exp.desc}</div>
+      ${linkedTxt ? `<div class="exp-card-projects-print">${linkedTxt}</div>` : ""}
+    `;
+    card.addEventListener("click",   () => openExpPopup(exp));
+    card.addEventListener("keydown", e => { if (e.key === "Enter") openExpPopup(exp); });
+    grid.appendChild(card);
+  });
+}
+
+const expPopup = document.getElementById("exp-popup");
+
+function openExpPopup(exp) {
+  document.getElementById("ep-role").textContent   = exp.role;
+  document.getElementById("ep-name").textContent   = exp.company;
+  document.getElementById("ep-period").textContent = exp.period;
+  document.getElementById("ep-desc").textContent   = exp.desc;
+
+  const linked = PROJECTS.filter(p => exp.projects.includes(p.name));
+  const label  = document.getElementById("ep-projects-label");
+  const list   = document.getElementById("ep-projects");
+
+  if (linked.length > 0) {
+    label.textContent = `// ${linked.length} PROJET${linked.length > 1 ? "S" : ""} LIÉ${linked.length > 1 ? "S" : ""}`;
+    list.innerHTML = linked.map(p => {
+      const idx = PROJECTS.indexOf(p);
+      return `
+        <div class="exp-popup-project" data-idx="${idx}" role="button" tabindex="0">
+          <div class="exp-popup-project-name">${p.name}</div>
+          <div class="exp-popup-project-type">${p.type}</div>
+          <div class="exp-popup-project-arrow">→</div>
+        </div>
+      `;
+    }).join("");
+    list.querySelectorAll(".exp-popup-project").forEach(el => {
+      el.addEventListener("click", () => { closeExpPopup(); openModal(+el.dataset.idx); });
+    });
+  } else {
+    label.textContent = "";
+    list.innerHTML    = `<div style="font-size:0.75rem;color:rgba(184,255,212,0.28);letter-spacing:0.1em">// AUCUN PROJET LIÉ</div>`;
+  }
+
+  expPopup.classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+
+function closeExpPopup() {
+  expPopup.classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+document.getElementById("exp-popup-close").addEventListener("click", closeExpPopup);
+expPopup.addEventListener("click", e => { if (e.target === expPopup) closeExpPopup(); });
 
 function renderProjects() {
   const projectsGrid = document.getElementById("projects-grid");
@@ -468,7 +559,7 @@ function renderSkillsTreemap() {
 
     const countLabel = skill.projects.length > 0
       ? `${skill.projects.length} <span>PROJET${skill.projects.length > 1 ? "S" : ""}</span>`
-      : `<span>TRANSVERSAL</span>`;
+      : ``;
 
     block.innerHTML = `
       <div class="skill-block-name">${skill.name}</div>
@@ -521,9 +612,9 @@ function openSkillPopup(skill) {
       el.addEventListener("keydown", e => { if (e.key === "Enter") handler(); });
     });
   } else {
-    document.getElementById("sp-sub").textContent = "// COMPÉTENCE TRANSVERSALE";
+    document.getElementById("sp-sub").textContent = "// COMPÉTENCE D'OUTIL";
     document.getElementById("sp-projects").innerHTML =
-      `<div class="skill-popup-empty">Aucun projet lié — compétence utilisée de façon transversale.</div>`;
+      `<div class="skill-popup-empty">Cette compétence représente l'utilisation d'un outil universel à chaque projet.</div>`;
   }
 
   skillPopup.classList.add("open");
@@ -591,8 +682,9 @@ document.getElementById("modal-close").addEventListener("click", closeModal);
 modal.addEventListener("click", e => { if (e.target === modal) closeModal(); });
 document.addEventListener("keydown", e => {
   if (e.key === "Escape") {
-    if (skillPopup.classList.contains("open")) closeSkillPopup();
-    else closeModal();
+    if (expPopup.classList.contains("open"))        closeExpPopup();
+    else if (skillPopup.classList.contains("open")) closeSkillPopup();
+    else                                             closeModal();
   }
 });
 document.querySelectorAll(".tab").forEach(tab => {
@@ -643,6 +735,7 @@ document.getElementById("play-btn").addEventListener("click", () => {
     currentEl.play();
     document.getElementById("play-btn").textContent = "⏸";
     setPlayerStatus("▶ LIVE");
+    oscCanvas.classList.add("visible");
     startProgressUpdate();
   } else {
     currentEl.pause();
@@ -726,6 +819,16 @@ function typeRole() {
 }
 
 typeRole();
+
+const rolesPrintList = document.createElement("ul");
+rolesPrintList.className = "hero-roles-print";
+rolesPrintList.style.display = "none";
+ROLES.forEach(r => {
+  const li = document.createElement("li");
+  li.textContent = r;
+  rolesPrintList.appendChild(li);
+});
+roleEl.insertAdjacentElement("afterend", rolesPrintList);
 
 const navToggle = document.getElementById("nav-toggle");
 const navLinks = document.getElementById("nav-links");

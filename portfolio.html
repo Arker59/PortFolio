@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,9 +8,11 @@
   <link rel="icon" type="image/x-icon" href="media/favicon.png" />
   <link rel="stylesheet" href="portfolio.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap"
+    rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
+
 <body>
 
   <div id="cursor" aria-hidden="true"></div>
@@ -25,6 +28,7 @@
       <li><a href="#projects">PROJETS</a></li>
       <li><a href="#skills">SKILLS</a></li>
       <li><a href="media/CV-Louis-DAULAUS.pdf" target="_blank" rel="noopener">CV</a></li>
+      <li><a href="#exp">EXPÉRIENCES</a></li>
       <li><a href="#contact">CONTACTS</a></li>
     </ul>
 
@@ -58,7 +62,7 @@
     </div>
     <div class="tabs">
       <button class="tab on" data-tab="url">URL DIRECTE</button>
-      <button class="tab"    data-tab="file">FICHIER</button>
+      <button class="tab" data-tab="file">FICHIER</button>
     </div>
     <div class="pane on" id="pane-url">
       <div class="url-row">
@@ -83,7 +87,7 @@
     <div class="skill-popup-box">
       <button class="skill-popup-close" id="skill-popup-close" aria-label="Fermer">✕</button>
       <div class="skill-popup-title" id="sp-title"></div>
-      <div class="skill-popup-sub"   id="sp-sub"></div>
+      <div class="skill-popup-sub" id="sp-sub"></div>
       <div class="skill-popup-projects" id="sp-projects"></div>
     </div>
   </div>
@@ -98,9 +102,9 @@
         <div class="carousel-dots" id="carousel-dots"></div>
       </div>
       <div class="modal-body">
-        <div class="modal-type"  id="m-type"></div>
+        <div class="modal-type" id="m-type"></div>
         <div class="modal-title" id="m-title"></div>
-        <p class="modal-desc"    id="m-desc"></p>
+        <p class="modal-desc" id="m-desc"></p>
         <div class="modal-pills" id="m-pills"></div>
         <div class="modal-links" id="m-links"></div>
       </div>
@@ -135,19 +139,29 @@
         <div class="section-tag">// 003 — COMPÉTENCES</div>
         <h2 class="section-title">HARD SKILLS</h2>
         <div class="skills-treemap" id="skills-treemap"></div>
-        <p class="skills-hint">// TAILLE ∝ UTILISATION — CLIQUER POUR VOIR LES PROJETS</p>
+      </div>
+    </section>
+
+    <section id="exp">
+      <div class="a4">
+        <div class="section-tag">// 004 — EXPÉRIENCES</div>
+        <h2 class="section-title">MES EXPÉRIENCES</h2>
+        <div class="exp-grid" id="exp-grid"></div>
       </div>
     </section>
 
     <section id="contact">
       <div class="a4 a4--center">
-        <div class="section-tag">// 004 — CONTACTS</div>
+        <div class="section-tag">// 005 — CONTACTS</div>
         <h2 class="section-title">TRAVAILLONS ENSEMBLE</h2>
         <div class="contact-links">
-          <a href="mailto:ldaulaus@et.esiea.fr" class="contact-link">EMAIL</a>
-          <a href="https://github.com/Arker59" class="contact-link" target="_blank" rel="noopener">GITHUB</a>
-          <a href="media/CV-Louis-DAULAUS.pdf" class="contact-link" target="_blank" rel="noopener">CV</a>
-          <a href="https://linkedin.com/in/louisdaulaus" class="contact-link" target="_blank" rel="noopener">LINKEDIN</a>
+          <a href="mailto:ldaulaus@et.esiea.fr" class="contact-link" data-label="EMAIL"><span>EMAIL</span></a>
+          <a href="https://github.com/Arker59" class="contact-link" data-label="GITHUB" target="_blank"
+            rel="noopener"><span>GITHUB</span></a>
+          <a href="https://www.linkedin.com/in/louisdaulaus/overlay/1776863508672/single-media-viewer?profileId=ACoAAFeJSkQB1ebKCJcOvM1cbSHnbubpjWfj_3w"
+            class="contact-link" data-label="CV" target="_blank" rel="noopener"><span>CV</span></a>
+          <a href="https://linkedin.com/in/louisdaulaus" class="contact-link" data-label="LINKEDIN" target="_blank"
+            rel="noopener"><span>LINKEDIN</span></a>
         </div>
       </div>
     </section>
@@ -168,6 +182,21 @@
     </nav>
   </footer>
 
+  <div id="exp-popup" role="dialog" aria-modal="true" aria-label="Détail de l'expérience">
+    <div class="exp-popup-box">
+      <button class="exp-popup-close" id="exp-popup-close" aria-label="Fermer">✕</button>
+      <div class="exp-popup-header">
+        <div class="exp-popup-role" id="ep-role"></div>
+        <div class="exp-popup-name" id="ep-name"></div>
+        <div class="exp-popup-period" id="ep-period"></div>
+      </div>
+      <p class="exp-popup-desc" id="ep-desc"></p>
+      <div class="exp-popup-projects-label" id="ep-projects-label"></div>
+      <div class="exp-popup-projects" id="ep-projects"></div>
+    </div>
+  </div>
+
   <script src="portfolio.js"></script>
 </body>
+
 </html>
