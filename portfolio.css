@@ -82,7 +82,13 @@ button {
   .btn,
   .dropzone,
   .modal-close,
-  .carousel-btn {
+  .carousel-btn,
+  .skill-block,
+  .skill-popup-project,
+  .skill-popup-close,
+  .exp-popup-project,
+  .exp-popup-close,
+  .exp-card {
     cursor: auto;
   }
 }
@@ -1296,7 +1302,6 @@ input[type="range"].vol {
   }
 
   .skills-treemap {
-    position: static !important;
     aspect-ratio: unset !important;
     display: flex !important;
     flex-direction: column !important;
@@ -1306,6 +1311,9 @@ input[type="range"].vol {
     overflow: visible !important;
   }
 
+  /* Sur mobile les blocs sont générés sans position absolute (fix JS),
+     mais on garde les overrides au cas où pour des navigateurs anciens */
+  .skills-treemap.is-list .skill-block,
   .skill-block {
     position: static !important;
     left: unset !important; top: unset !important;
@@ -1314,10 +1322,13 @@ input[type="range"].vol {
     flex-direction: row !important;
     justify-content: space-between !important;
     align-items: center !important;
-    padding: 0.85rem 1.1rem !important;
+    padding: 0.85rem 1.1rem 0.85rem 1.4rem !important;
     border: none !important;
     border-bottom: 1px solid var(--border) !important;
+    border-left: 3px solid var(--skill-color) !important;
     text-align: left !important;
+    cursor: pointer !important;
+    pointer-events: none;
   }
 
   .skill-block:last-child {
